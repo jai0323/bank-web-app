@@ -1,5 +1,3 @@
-<%@page import="com.banking.beans.Branch"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<title>Fast Money</title>
+<title>Add Employee</title>
 </head>
 
 <body>  
@@ -20,6 +18,8 @@
     <img src="images/bank_logo.png" alt="Logo" style="width:50px;">
   </a>
   <h3><a class="navbar-brand" href="#">FAST MONEY</a></h3>
+<h4 class="rounded-circle bg-light" style="float: right;margin-left:auto;margin-right:0"> &nbsp;  Admin  &nbsp;</h4>   
+
 </nav>
 
 <nav class="navbar navbar-expand-sm bg-primary">
@@ -27,43 +27,55 @@
   <!-- Links -->
   <ul class="navbar-nav " style="margin-left:20px">
     <li class="nav-item">
-      <a class="nav-link text-white " href="#">Home</a>
+      <a class="nav-link text-white " href="MainController?task=admin_home">Home</a>
     </li>
-  </ul>
+    </ul>
+    <a href="index.jsp" class="btn btn-success bg-warning border border-danger " style="float: right;margin-left:auto;margin-right:0"> Logout </a>
    
 </nav>
 <br>
+
+<%
+ String message=(String)request.getParameter("message");
+ if(message!=null)
+ {
+	 %>
+	    <div class="col-sm-12">
+	   	<div class="alert alert-info alert-dismissible fade show" style="width:50%;margin-left: 25%; " >
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		  <strong><%=message %></strong>
+		</div>
+		</div>	 
+	 <% } %>
+
 <div class="container">
 <div class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white" style="width:80%;height:80%"> 
-<h2>Account Opening From</h2><hr>
+<h2>Employee Registration</h2><hr>
 <h6>Kindly provide the following details</h6>
-<form action="MainController" method="post" enctype="multipart/form-data">
+<form action="MainController" method="post">
   <div class="form-group">
     <label for="name">Name:</label>
     <input type="text" class="form-control" placeholder="Enter name" id="name" name="name" required>
   </div>
   <div class="form-group">
-  <label for="sel1">Select the Branch:</label>
-  <select class="form-control"  name="branchCode">
-    <%
-    List<Branch> branchs=(List<Branch>)request.getAttribute("branchs");
-    if(branchs!=null && branchs.size()!=0)
-    {
-    	for(Branch b:branchs)
-    	{
-    
-    %>
-    <option value="<%=b.getBranchCode()%>"><%=b.getName()%>, <%=b.getCity()%>, <%=b.getState()%></option>
-    <%}} %>
-  </select>
+  <label for="gender">Post:</label><br>
+   <div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input" name="post" value="cashier">Cashier</label>
 </div>
-  <div class="form-group">
-    <label for="emailid">Email address:</label>
-    <input type="email" class="form-control" placeholder="Enter email" id="email" name="emailid" required>
+<div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input" name="post" value="officer">Officer</label>
+</div>
+<div class="form-check-inline disabled">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input" name="post" value="Manager">Manager</label>
+</div>
+   
   </div>
   <div class="form-group">
-    <label for="pwd">Password:</label>
-    <input type="password" class="form-control" placeholder="Enter password" id="pwd" name="password" required>
+    <label >Branch:</label>
+    <input type="text" class="form-control" placeholder="Enter branch code" id="branchCode" name="branchCode" required>
   </div>
   <div class="form-group">
   <label for="gender">Gender:</label><br>
@@ -81,7 +93,10 @@
 </div>
    
   </div>
-  
+  <div class="form-group">
+    <label for="emailid">Email address:</label>
+    <input type="email" class="form-control" placeholder="Enter email" id="email" name="emailid" required>
+  </div>
   <div class="form-group">
     <label for="address">Address:</label>
     <input type="text" class="form-control" placeholder="Enter address" id="address" name="address" required>
@@ -106,20 +121,11 @@
     <label for="PAN">PAN:</label>
     <input type="text" class="form-control" placeholder="Enter PAN" id="pan" name="pan" required>
   </div>
-  <div class="form-group form-check">
-    <label class="form-check-label">
-      <input class="form-check-input" type="checkbox" required>I declare given information in valid and if not, required action can be taken against me.
-    </label>
-  </div>
-   <div class="form-group">
-    <label >Photo with sign:</label>
-    <p>sign must be at the bottom on photo and Size must be 50px by 50px</p>
-    <input type="file" name="photo" size="50"/>
-    </div>
-  <button type="submit" class="btn btn-primary" name="task" value="newAccount">Submit</button>
+  <button type="submit" class="btn btn-primary" name="task" value="newEmployee">Submit</button>
 </form>
 
 </div>
 </div>
+
 </body>
 </html>

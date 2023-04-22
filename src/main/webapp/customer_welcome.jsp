@@ -38,12 +38,6 @@
      <li class="nav-item">
       <a class="nav-link text-white" href="MainController?task=myAccountDetails">Account   &nbsp;&nbsp;|</a>
     </li>
-    <li class="nav-item ">
-      <a class="nav-link text-white" href="#">About   &nbsp;&nbsp;|</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-white" href="#">Contact  &nbsp; &nbsp;|</a>
-    </li>
      <li class="nav-item">
       <a class="nav-link text-white" href="MainController?task=changepassword">Change Password  </a>
     </li>
@@ -52,7 +46,7 @@
    <a href="MainController?task=logout_user" class="btn btn-success bg-warning border border-danger " style="float: right;margin-left:auto;margin-right:0"> Logout </a>
 </nav>
 
-<% String message=request.getParameter("message"); 
+<% String message=(String)request.getAttribute("message"); 
 if(message!=null && message.length()!=0)
 {%>
 

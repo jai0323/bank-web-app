@@ -12,7 +12,7 @@
 <title>Fast Money</title>
 </head>
 
-<body class="bg-light">
+<body>
 <nav class="navbar navbar-expand-sm  bg-primary navbar-dark ">
    <a class="navbar-brand" href="#">
     <img src="images/bank_logo.png" alt="Logo" style="width:50px;">
@@ -27,24 +27,9 @@
     <li class="nav-item">
       <a class="nav-link text-white " href="index.jsp">Home</a>
     </li>
-  
-  </ul>
-   </nav>
-<br>
-<div class="container ">
-	<div class="row ">
-		<div class="col-sm-4 text-center">
-		<a href="administrator_index.jsp" class="btn btn-outline-info btn-lg" >Administrator</a>
-		</div>
-		<div class="col-sm-4 text-center">
-		<a href="employee_login.jsp" class="btn btn-outline-info btn-lg">Officer</a>
-		</div>
-		<div class="col-sm-4 text-center">
-		<a href="customer_index.jsp" class="btn btn-outline-info btn-lg">Customer</a>
-		</div>
-	</div>
-</div>
-<br>
+   </ul>
+   <a href="MainController?task=signup" class="btn btn-success " style="float: right;margin-left:auto;margin-right:0"> Create New Account </a>
+</nav>
 
 <div id="demo" class="carousel slide " data-ride="carousel" >
 
@@ -84,6 +69,59 @@
   </a>
 
 </div>
+<br>
+<div>
+<% String message=request.getParameter("message"); 
+if(message!=null && message.length()!=0)
+{%>
+ <div class="col-sm-12">
+	   	<div class="alert alert-info alert-dismissible fade show" style="width:50%;margin-left: 25%; " >
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		  <strong><%=message %></strong>
+		</div>
+		</div>
+<%} %>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+    <div class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white">
+      <h3>Services Available</h3>
+      <hr>
+      <ul type="circle">
+      <li>Online Account Opening</li>
+      <li>Online Transaction</li>
+      <li>Deposit</li>
+      <li>Withdrawal</li>
+      <li>Account Statement</li>
+      <li>Daily Transaction Report</li>
+      <li>Customer Query</li>
+      </ul>
+        <br/>
+    </div>
+   </div>
+    <div class="col-sm-4">
+    <div class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white">
+      <h3>Login</h3><hr>
+      <form action="MainController" >
+  	    <div class="form-group">
+         <label for="emailid">Email:</label>
+  			<input type="text" class="form-control" id="emailid" name="emailid">
+		</div>
+		<div class="form-group">
+		  <label for="password">Password:</label>
+  			<input type="password" class="form-control" id="password" name="password">
+		</div>
+		<div class="form-group">
+		  <button type="submit" class="btn btn-primary" name="task" value="customer_login" > Login </button>&nbsp;&nbsp;
+		  <a href="MainController?task=signup" class="btn btn-success" > Create New Account </a>
+		</div>
+     </form>
+     </div>
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>

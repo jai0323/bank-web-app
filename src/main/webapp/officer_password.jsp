@@ -1,4 +1,4 @@
-<%@page import="com.banking.beans.Officer"%>
+<%@page import="com.banking.beans.Employee"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -19,9 +19,16 @@
   </a>
   <h3><a class="navbar-brand" href="#">FAST MONEY</a></h3>
       <%
-  Officer officer=(Officer)session.getAttribute("officer");
+      Employee emp=(Employee)session.getAttribute("employee");
+      String task;
+      if(emp.getPost().equalsIgnoreCase("Manager"))
+    	  task="manager_home";
+      else if(emp.getPost().equalsIgnoreCase("officer"))
+    	  task="officer_home";
+      else
+    	  task="cashier_home";
   %>
-<a href="#" class="rounded-circle bg-light" style="float: right;margin-left:auto;margin-right:0"> <h4>&nbsp;  Admin  &nbsp;</h4> </a>
+<a href="#" class="rounded-circle bg-light" style="float: right;margin-left:auto;margin-right:0"> <h4>&nbsp;  <%=emp.getName() %>  &nbsp;</h4> </a>
   
 </nav>
 
@@ -30,17 +37,10 @@
   <!-- Links -->
   <ul class="navbar-nav " style="margin-left:20px">
     <li class="nav-item">
-      <a class="nav-link text-white " href="MainController?task=officer_home">Home   &nbsp;&nbsp;|</a> 
+      <a class="nav-link text-white " href="MainController?task=<%=task%>">Home   &nbsp;&nbsp;|</a> 
     </li>
-     <li class="nav-item ">
-      <a class="nav-link text-white" href="#">About   &nbsp;&nbsp;|</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-white" href="#">Contact  &nbsp; &nbsp;|</a>
-    </li>
-    
   </ul>
-   <a href="#" class="btn btn-success bg-warning border border-danger " style="float: right;margin-left:auto;margin-right:0"> Logout </a>
+   <a href="MainController?task=logout_officer" class="btn btn-success bg-warning border border-danger " style="float: right;margin-left:auto;margin-right:0"> Logout </a>
 </nav>
 
 <br>

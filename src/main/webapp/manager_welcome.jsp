@@ -31,20 +31,36 @@
   <!-- Links -->
   <ul class="navbar-nav " style="margin-left:20px">
     <li class="nav-item">
-      <a class="nav-link text-white " href="MainController?task=officer_home">Home   &nbsp;&nbsp;|</a> 
+      <a class="nav-link text-white " href="MainController?task=manager_home">Home   &nbsp;&nbsp;|</a> 
     </li>
      <li class="nav-item">
       <a class="nav-link text-white" href="MainController?task=customer_details">Account Details &nbsp;&nbsp;|</a>
     </li>
      <li class="nav-item">
-      <a class="nav-link text-white" href="officer_password.jsp">Change Password  </a>
+      <a class="nav-link text-white" href="officer_password.jsp">Change Password</a>
     </li>
 
   </ul>
-   <a href="MainController?task=logout_officer" class="btn btn-success bg-warning border border-danger " style="float: right;margin-left:auto;margin-right:0"> Logout </a>
+  <span class="text-white"   style="float: right;margin-left:auto;margin-right:0">
+ 
+  <%Cashinhand c=(Cashinhand)request.getAttribute("cashinhand");%>
+   <%if(c.getStatus()==0){ %>
+  <b> Branch Balance=</b><b class="text-danger"> Rs.  <%=c.getBalance() %></b>&nbsp;
+   <a href="MainController?task=branchStatus&status=<%=c.getStatus() %>" class="btn btn-success  border border-danger" >
+     Begin Day </a>
+    <%}
+    else
+    {%>
+    <b> Branch Balance=</b><b class="text-success"> Rs.  <%=c.getBalance() %></b>&nbsp;
+   <a href="MainController?task=branchStatus&status=<%=c.getStatus() %>" class="btn btn-success  border border-danger" >
+  
+    End Day
+    </a><%} %>
+   <a href="MainController?task=logout_officer" class="btn btn-success bg-warning border border-danger "> Logout </a>
+</span>
 </nav>
 
-<br>
+<br> 
 
 <%
  String message=(String)request.getAttribute("message");
@@ -60,10 +76,13 @@
 			 
 	 <% 
  }
+ 
  %>
- <%
- User acc=(User)request.getAttribute("account");
-if(acc!=null)
+ 
+ 
+ 
+<% User acc=(User)request.getAttribute("account");
+  if(acc!=null)
 {
 %>		<div class="col-sm-12">
       <div class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white" style="width:90%;margin-left:5%">
@@ -76,10 +95,6 @@ if(acc!=null)
 		  <div class="form-group">
 		    <label for="name">Name:</label>
 		    <input type="text" class="form-control"  id="name" name="name" value="<%=acc.getName() %>" required>
-		  </div>
-		   <div class="form-group">
-		    <label for="name">Branch:</label>
-		    <input type="text" class="form-control"  id="name" name="branchCode" value="<%=acc.getBranchCode() %>" required>
 		  </div>
 		  <div class="form-group">
 		    <label for="emailid">Email address:</label>
@@ -123,112 +138,91 @@ if(acc!=null)
 		</div>        	  
       </div>
 <%
-}
+   }
 %>
-
- <div class="container">
+ 
+ 
+  <div class="container">
   <div class="row">
     
     <div class="col-sm-6">
-    
-<div class="container">
-<div class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white" style="width:80%;height:80%"> 
-<h2>Account Opening From</h2><hr>
-<h6>Kindly provide the following details</h6>
-<form action="MainController" method="post">
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" class="form-control" placeholder="Enter name" id="name" name="name" required>
-  </div>
-  <div class="form-group">
-  <label for="sel1">Select the Branch:</label>
-  <select class="form-control"  name="branchCode">
-    <%
-    List<Branch> branchs=(List<Branch>)request.getAttribute("branchs");
-    if(branchs!=null && branchs.size()!=0)
-    {
-    	for(Branch b:branchs)
-    	{
-    
-    %>
-    <option value="<%=b.getBranchCode()%>"><%=b.getName()%>, <%=b.getCity()%>, <%=b.getState()%></option>
-    <%}} %>
-  </select>
-</div>
-  <div class="form-group">
-    <label for="emailid">Email address:</label>
-    <input type="email" class="form-control" placeholder="Enter email" id="email" name="emailid" required>
-  </div>
-  <div class="form-group">
-    <label for="pwd">Password:</label>
-    <input type="password" class="form-control" placeholder="Enter password" id="pwd" name="password" required>
-  </div>
-  <div class="form-group">
-  <label for="gender">Gender:</label><br>
-   <div class="form-check-inline">
-  <label class="form-check-label">
-    <input type="radio" class="form-check-input" name="gender" value="Male">Male</label>
-</div>
-<div class="form-check-inline">
-  <label class="form-check-label">
-    <input type="radio" class="form-check-input" name="gender" value="Female">Female</label>
-</div>
-<div class="form-check-inline disabled">
-  <label class="form-check-label">
-    <input type="radio" class="form-check-input" name="gender" value="Others">Others</label>
-</div>
-   
-  </div>
-  
-  <div class="form-group">
-    <label for="address">Address:</label>
-    <input type="text" class="form-control" placeholder="Enter address" id="address" name="address" required>
-  </div>
-   <div class="form-group">
-    <label for="city">City:</label>
-    <input type="text" class="form-control" placeholder="Enter city" id="city" name="city" required>
-  </div>
-   <div class="form-group">
-    <label for="state">State:</label>
-    <input type="text" class="form-control" placeholder="Enter state" id="state" name="state" required>
-  </div>
-   <div class="form-group">
-    <label for="pno">Mobile:</label>
-    <input type="text" class="form-control" placeholder="Enter mobile" id="pno" name="pno" required>
-  </div>
-  <div class="form-group">
-    <label for="Adhaar">Adhaar:</label>
-    <input type="text" class="form-control" placeholder="Enter Adhaar" id="adhaar" name="adhaar" required>
-  </div>
-  <div class="form-group">
-    <label for="PAN">PAN:</label>
-    <input type="text" class="form-control" placeholder="Enter PAN" id="pan" name="pan" required>
-  </div>
-  <div class="form-group form-check">
-    <label class="form-check-label">
-      <input class="form-check-input" type="checkbox" required>I declare given information in valid and if not, required action can be taken against me.
-    </label>
-  </div>
-  <button type="submit" class="btn btn-primary" name="task" value="newAccount">Submit</button>
-</form>
-
-</div>
-</div>
-     
-    </div>
-    <div class="col-sm-6"  >
-     
       <div   class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white" style="width:99%">
-			  <h3>New Account For Verification</h3>   <hr>   
-				 <div style="height:300px;overflow-y:auto;overflow-x:auto;width: 100%;">	     
-		     	  <table class="table table-striped">
+			  <h3>Pending Payments</h3>   <hr>   
+			  <div style="height:300px;overflow-y:auto;width: 100%;">
+			  <table class="table table-striped">
+			 
+			    <tbody style="height:1000px;overflow-y:auto;width: 100%;">
+			     <%
+			  List<PendingPayment> pps=(List<PendingPayment>)request.getAttribute("pendingPayments");
+			  if(pps!=null && pps.size()!=0)
+			  { for(PendingPayment pp:pps)
+			  {
+			  %>
+			    <% if(pp.getStatus()==0){%>
+			      <tr>
+			        <td><%=pp.getAcc_no()%></td>
+			        <td><%=pp.getName() %></td>
+			        <td><%=pp.getAmount()%></td>
+			       <td style="width:50%"><a href="MainController?task=managerPaymentVerify&acc_no=<%=pp.getAcc_no()%>"><button  type="button" class="btn btn-success float-right">Verify</button></a>
+			       
+			      </tr>
+			       <%} %>
+			      <%
+			  }
+				 }
+				 %>
+				 </tbody>
+				 
+			  </table>
+			  </div>
+			</div>
+			</div>
+		 <div class="col-sm-6">
+       <div   class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white" style="width:99%">
+			  <h3>Today's Transactions</h3>   <hr>   
+			  <div style="height:300px;overflow-y:auto;width: 100%;">
+			  <table class="table table-striped" style="width:99%">
+			 
+			    <tbody>
+			     <%
+			  List<Transaction> tt=(List<Transaction>)request.getAttribute("tt");
+			  if(tt!=null && tt.size()!=0)
+			  { for(Transaction t:tt)
+			  {
+			  %>     <tr style="width:99%">
+				        <td><%=t.getTran_id() %></td>
+				        <%if(t.getSender().equals(emp.getBranchCode()+":BY CASH")){ %>
+				        <td><%=t.getReceiver() %></td>
+				        <td class="text-success"><%=t.getAmount() %></td>
+				        <%} 
+				        else {%>
+				        <td><%=t.getSender() %></td>
+				        <td class="text-danger"><%=t.getAmount() %></td>
+				        <%} %>
+				         
+				      </tr>
+				  
+			 <%	
+			  } }
+			 %>
+				 </tbody>
+			</table>
+			</div>
+			</div>
+        </div>
+    </div>
+    <div class="row">
+    	<div class="col-sm-6">
+   			   <div class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white" style="width:100%">
+        <h3>New Account For Verification</h3>   <hr>
+        <div style="height:300px;overflow-y:auto;width: 100%;">   
+			  <table class="table table-striped">
 			 
 			    <tbody>
 			     <%
 			  List<User> accounts=(List<User>)request.getAttribute("accounts");
 			  if(accounts!=null && accounts.size()!=0)
 			  { for(User account:accounts)
-			  {  if(account.getBranchCode()==emp.getBranchCode())
 			  {
 			  %>
 			      <tr>
@@ -240,26 +234,28 @@ if(acc!=null)
 			       
 			      </tr>
 			      <%
-			  }}
+			  }
 				 }
 				 %>
 				 </tbody>
 				 
 			  </table>
-			</div>
-			</div>
+			</div> 	
+    	</div>
+    	</div>
+         <div class="col-sm-6">
        <div   class="border border-light rounded-lg shadow-lg p-4 mb-4 bg-white" style="width:100%">
 			  <h3>Customer Query</h3>   <hr>   
-			   <div style="height:300px;overflow-y:auto;overflow-x:auto;width: 100%;">
+			  <div style="height:300px;overflow-y:auto;overflow-x:auto;width: 100%;">
 			  <table class="table table-striped" style="width:99%">
 			 
 			    <tbody>
 			     <%
-			  List<Query> reports=(List<Query>)request.getAttribute("report");
-			  if(reports!=null && reports.size()!=0)
-			  { for(Query q:reports)
+			  List<Query> report=(List<Query>)request.getAttribute("report");
+			  if(report!=null && report.size()!=0)
+			  { for(Query q:report)
 			  {
-			  %>			          <tr style="width:99%">
+			  %>		<tr style="width:auto">
 				        <td><%=q.getQ_id() %></td>
 				        <td><%=q.getName() %></td>
 				        <td><%=q.getCategory() %></td>
@@ -268,19 +264,16 @@ if(acc!=null)
 				          <td> <a href="MainController?task=replyToQuery&query=<%=q.getQ_id()%>"  class="btn btn-success"> Reply </a></td>
 				        
 				      </tr>
-				      
-			      <%	
+			<%	
 			  }
 				 }
 				 %>
 				 </tbody>
-				 
-			  </table>
+		     </table>
 			</div>
-			</div>
-    
+        </div>   
+        </div>
     </div>
-  </div>
 </div>
 </body>
 

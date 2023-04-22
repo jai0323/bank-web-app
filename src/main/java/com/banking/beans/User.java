@@ -8,20 +8,34 @@ import javax.persistence.Table;
 @Table(name="user")
 public class User {
     @Id
-	int acc_no;
-	String name,emailid,password,gender,address,city,state,pno,adhaar,pan,verify;
+	String acc_no;
+	String name,emailid,password,gender,address,city,state,pno,adhaar,pan,verify,customer_id;
 	float balance;	
+	int branchCode;
 	
+	
+	public String getCustomer_id() {
+		return customer_id;
+	}
+	public void setCustomer_id(String customer_id) {
+		this.customer_id = customer_id;
+	}
+	public int getBranchCode() {
+		return branchCode;
+	}
+	public void setBranchCode(int branchCode) {
+		this.branchCode = branchCode;
+	}
 	public String getVerify() {
 		return verify;
 	}
 	public void setVerify(String verify) {
 		this.verify = verify;
 	}
-	public int getAcc_no() {
+	public String getAcc_no() {
 		return acc_no;
 	}
-	public void setAcc_no(int acc_no) {
+	public void setAcc_no(String acc_no) {
 		this.acc_no = acc_no;
 	}
 	
@@ -105,15 +119,18 @@ public class User {
 		this.adhaar = adhaar;
 		this.pan = pan;
 		
+		
 	}
 	public User() {
 		
 	}
-	public User(int acc_no, String name, String emailid, String password, String gender, String address, String city,
-			String state, String pno, String adhaar, String pan) {
+	public User(String acc_no, String name, String emailid, String password, String gender, String address, String city,
+			String state, String pno, String adhaar, String pan,int branchCode,String customer_id) {
 		
 		this.acc_no = acc_no;
 		this.name = name;
+		this.branchCode = branchCode;
+		this.customer_id = customer_id;
 		this.emailid = emailid;
 		this.password = password;
 		this.gender = gender;
@@ -125,7 +142,7 @@ public class User {
 		this.pan = pan;
 	
 	}
-	public User(int acc_no, String name, String emailid, String password, String gender, String address, String city,
+	public User(String acc_no, String name, String emailid, String password, String gender, String address, String city,
 			String state, String pno, String adhaar, String pan, float balance, String verify) {
 		
 		this.acc_no = acc_no;
@@ -141,10 +158,11 @@ public class User {
 		this.pan = pan;
 		this.balance = balance;
 		this.verify=verify;
+		
 	}
 	
 	public User( String name, String emailid, String password, String gender, String address, String city,
-			String state, String pno, String adhaar, String pan, float balance,String verify) {
+			String state, String pno, String adhaar, String pan, float balance,String verify,int branchCode,String acc_no,String customer_id) {
 		
 		
 		this.name = name;
@@ -154,7 +172,10 @@ public class User {
 		this.address = address;
 		this.city = city;
 		this.state = state;
+		this.acc_no = acc_no;
 		this.pno = pno;
+		this.branchCode = branchCode;
+		this.customer_id = customer_id;
 		this.adhaar = adhaar;
 		this.pan = pan;
 		this.balance = balance;
